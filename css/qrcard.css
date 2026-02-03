@@ -1,0 +1,116 @@
+body {
+    background-color: rgb(228, 228, 228);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.profile-container {
+    position: relative;
+    width: 400px;
+    height: 500px;
+    background: url('../images/Profile_Card.jpg') no-repeat center center;
+    background-size: cover;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.qr-code {
+    position: absolute;
+    top: 30px;
+    left: 62%;
+    transform: translateX(-50%);
+    width: 250px;
+    height: 250px;
+}
+
+.qr-code img {
+    width: 93%;
+    height: 93%;
+    border-radius: 5px;
+}
+
+.student-name {
+    position: absolute;
+    top: 300px;
+    left: 60%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    color: white;
+    line-height: 100%;
+    text-align: center;
+}
+
+.student-name .last-name {
+    font-weight: bold;
+    font-size: 28px;
+    text-transform: uppercase;
+}
+
+.student-name .first-name {
+    font-weight: bold;
+    font-size: .9em;
+    text-transform: uppercase;
+}
+
+.badge-container {
+    position: absolute;
+    top: 354px;
+    left: 60%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    font-size: .9em;
+    color: #0D5B11;
+}
+
+.avatar {
+    position: absolute;
+    bottom: 5px;
+    left: 77px;
+    width: 105px;
+    height: 105px;
+}
+
+.student-info {
+    position: absolute;
+    bottom: 9px;
+    left: 195px;
+    color: #beff91;
+    font-weight: bold;
+    text-align: left;
+    line-height: 110%;
+}
+
+.student-info p {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.student-info span {
+    margin-left: 20px;
+    display: block;
+    font-weight: normal;
+    color: rgb(255, 255, 255);
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-green {
+    background-color: #69B41E;
+    color: rgb(255, 255, 255);
+    border: none;
+}
+
+.btn-green:hover {
+    background-color: #0D5B11;
+    color: rgb(235, 235, 235);
+}

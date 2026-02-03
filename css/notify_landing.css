@@ -1,0 +1,44 @@
+/* Announcement card styling */
+.cards {
+    border-left: 5px solid #69B41E;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+    padding-bottom: 20px;
+    text-align: left;
+    background-color: #f3fbe8;
+    padding: 20px;
+    margin-left: 8px;
+    margin-right: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Title styling */
+.card-title {
+    font-size: 23px;
+    font-weight: bold;
+    color: #187C19;
+}
+
+/* Text content styling */
+.card-text {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+/* Timestamp styling */
+.text-muted {
+    font-size: 12px;
+    font-style: italic;
+    color: #6c757d;
+}

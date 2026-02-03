@@ -1,0 +1,150 @@
+body {
+    background-color: #f1f8e9;
+}
+
+.navbar {
+    background-color: #4caf50;
+}
+
+.navbar-brand img {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.navbar-brand,
+.nav-link {
+    color: white !important;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+
+}
+
+.hero {
+    text-align: center;
+    padding: 200px 20px;
+    background: linear-gradient(rgba(29, 29, 29, 0.555), rgba(42, 121, 53, 0.8)), url('../images/Cover.jpg') no-repeat top center/cover;
+    color: #ffffff;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hero h1 {
+     font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.btn-hero {
+    background-color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+
+.features {
+    margin-top: 10px;
+}
+
+.avatars {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #05810f;
+}
+
+.avatars h1 {
+    text-align: center;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 2.5rem;
+}
+
+h5 {
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.6rem;
+}
+
+.card {
+    border-radius: 10px;
+    text-align: center;
+    margin: 10px;
+}
+
+.card img {
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+
+}
+
+.modal-content {
+    border-radius: 10px;
+    background: #ffffff;
+    border: none;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+}
+
+.modal-header {
+    background-color: #388e3c;
+    color: white;
+}
+
+.modal-body {
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+.btn-success {
+    background-color: #66bb6a;
+    border: none;
+}
+
+.avatar-option {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.avatar-option label {
+    cursor: pointer;
+}
+
+.avatar-option img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.avatar-option input[type="radio"]:checked + img {
+    border-color: #388e3c;
+}
+
+.footer-armygreen {
+    background-color: #042703; /* army green */
+}
+
+.social-link:hover {
+    color: #1dff0d !important; /* light green hover */
+    text-decoration: underline;
+}
+
+#about-squared h2 {
+    font-size: 2.25rem;
+}
+
+#about-squared .lead {
+    font-size: 1.1rem;
+}
+
+

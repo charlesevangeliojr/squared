@@ -1,0 +1,130 @@
+/* General Styles */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* Centering the Form */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+/* Navbar-style Branding (Separate from Form) */
+.navbar-branding {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #4caf50;
+    width: 100%;
+    padding: 15px 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-branding img {
+    width: 32px; /* Adjust size as needed */
+    height: auto;
+}
+
+.navbar-branding .brand-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+/* Card Styling */
+.card {
+    border-radius: 10px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+    border: none;
+    max-width: 420px;
+    background-color: #ffffff;
+    margin-top: 20px;
+}
+
+/* Forgot Password Header */
+.card-header {
+    background-color: #4caf50;
+    color: white;
+    font-size: 1.5rem;
+    padding: 20px;
+    text-align: center;
+    border-radius: 20px 20px 0 0;
+}
+
+/* Forgot Password Title */
+.forgot-password-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Smaller Instruction Text */
+.small-text {
+    font-size: 0.9rem;
+    color: #f8f9fa;
+}
+
+/* Card Body */
+.card-body {
+    padding: 20px;
+}
+
+/* Input Fields */
+.form-control {
+    border-radius: 5px;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    border-color: #4caf50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+/* Button Styling */
+.btn-primary {
+    background-color: #4caf50;
+    border: none;
+    padding: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #388e3c;
+}
+
+/* Card Footer */
+.card-footer {
+    text-align: center;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 0 0 10px 10px;
+}
+
+.back-to-login {
+    text-decoration: none;
+    font-weight: bold;
+    color: #388e3c;
+    transition: color 0.3s;
+}
+
+.back-to-login:hover {
+    color: #2e7d32;
+}
+
+/* Alert Messages */
+.alert {
+    padding: 12px;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 5px;
+}

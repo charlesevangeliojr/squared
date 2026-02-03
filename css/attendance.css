@@ -1,0 +1,33 @@
+.card-title {
+    font-size: 23px;
+    font-weight: bold;
+    color: #187C19;
+}
+
+/* attendance.css */
+
+.attendance-card {
+    border: 2px solid #69B41E;
+    display: flex;
+    flex-direction: column;
+}
+
+.attendance-card .card-body {
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+.attendance-card .card-title {
+    color: #187C19;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.card-body {
+    padding: 0;
+}
+
+.attendance-card:hover {
+    transform: translateY(-5px);
+    transition: transform 0.2s ease;
+}
