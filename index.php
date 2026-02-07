@@ -732,6 +732,45 @@ setInterval(fetchAndAnimate, 1000);
   updateClock(); // Initial call
 </script>
 
+<script>
+    // Close navbar when clicking on a nav link (for mobile)
+    document.addEventListener('DOMContentLoaded', function() {
+        const navLinks = document.querySelectorAll('.nav-link');
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // Check if navbar is expanded on mobile
+                if (window.getComputedStyle(navbarToggler).display !== 'none') {
+                    // Close the navbar
+                    const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                        toggle: false
+                    });
+                    bsCollapse.hide();
+                    
+                    // Update aria-expanded attribute
+                    navbarToggler.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+        
+        // Close navbar when clicking outside (optional)
+        document.addEventListener('click', function(event) {
+            const isClickInsideNavbar = document.querySelector('.navbar').contains(event.target);
+            const isNavbarExpanded = navbarToggler.getAttribute('aria-expanded') === 'true';
+            
+            if (!isClickInsideNavbar && isNavbarExpanded) {
+                const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+                if (bsCollapse) {
+                    bsCollapse.hide();
+                }
+                navbarToggler.setAttribute('aria-expanded', 'false');
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>
