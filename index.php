@@ -17,6 +17,9 @@ session_start();
     <meta name="title" content="Squared QR — Fast QR Attendance System">
     <meta name="description" content="Track attendance easily with QR scanning. Fast. Secure. Student-friendly.">
 
+    <!-- reCAPTCHA -->
+     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://squared-qr.duckdns.org/">
@@ -275,6 +278,15 @@ session_start();
                             </div>
                             <p id="matchMessage" class="text-danger" style="display: none;"></p>
                         </div>
+
+                        <!-- reCAPTCHA -->
+                        <div class="mb-3">
+                            <div class="g-recaptcha" data-sitekey="6LfQ32MsAAAAAD-QTYTcUYS6NfxciFrY58GNjghU"></div>
+                            <div id="captchaError" class="text-danger mt-2" style="display: none;">
+                                ⚠ Please verify that you're not a robot.
+                            </div>
+                        </div>
+
                         <!-- Terms Checkbox -->
                         <div class="mb-3 form-check text-center">
                             <input type="checkbox" class="form-check-input" id="termsCheckbox" required>
@@ -769,6 +781,59 @@ setInterval(fetchAndAnimate, 1000);
             }
         });
     });
+</script>
+
+
+<script>
+// reCAPTCHA v2 validation
+document.getElementById("registerForm").addEventListener("submit", function(event) {
+    // Check if all form fields are valid first
+    if (!this.checkValidity()) {
+        return true; // Let browser show validation messages
+    }
+    
+    // Check reCAPTCHA
+    const recaptchaResponse = grecaptcha.getResponse();
+    const captchaError = document.getElementById("captchaError");
+    
+    if (recaptchaResponse.length === 0) {
+        event.preventDefault();
+        captchaError.style.display = "block";
+        
+        // Scroll to captcha
+        document.querySelector('.g-recaptcha').scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+        
+        return false;
+    }
+    
+    captchaError.style.display = "none";
+    return true;
+});
+
+// Reset reCAPTCHA when modal is closed
+document.addEventListener('DOMContentLoaded', function() {
+    const registerModal = document.getElementById('registerModal');
+    
+    if (registerModal) {
+        // Reset when modal is closed
+        registerModal.addEventListener('hidden.bs.modal', function () {
+            if (typeof grecaptcha !== 'undefined' && grecaptcha.reset) {
+                grecaptcha.reset();
+            }
+            document.getElementById('captchaError').style.display = 'none';
+        });
+        
+        // Optional: Reset when modal is opened
+        registerModal.addEventListener('show.bs.modal', function () {
+            if (typeof grecaptcha !== 'undefined' && grecaptcha.reset) {
+                grecaptcha.reset();
+            }
+        });
+    }
+});
 </script>
 
 </body>

@@ -4,7 +4,7 @@ require 'config.php';
 require '../phpqrcode/qrlib.php';
 
 $qr_output_dir = "../qr_images/";
-$web_qr_dir = "../qr_images/"; // relative path for HTML (symlinked from QR dir)
+$web_qr_dir = "../qr_images/";
 
 // Ensure output directory exists
 if (!is_dir($qr_output_dir)) {
@@ -12,6 +12,74 @@ if (!is_dir($qr_output_dir)) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // ==================== reCAPTCHA v2 VERIFICATION ====================
+    // Check if reCAPTCHA response exists
+    if (!isset($_POST['g-recaptcha-response']) || empty($_POST['g-recaptcha-response'])) {
+        $_SESSION['modal_message'] = "❌ Please complete the 'I'm not a robot' verification.";
+        $_SESSION['modal_type'] = "danger";
+        header("Location: ../index.php");
+        exit();
+    }
+
+    // Your reCAPTCHA Secret Key
+    $secretKey = "6LfQ32MsAAAAAF910chGBdjPMqleukkXRdFU6bDN";
+    $captchaResponse = $_POST['g-recaptcha-response'];
+    
+    // Verify with Google reCAPTCHA API
+    $verifyURL = 'https://www.google.com/recaptcha/api/siteverify';
+    $data = array(
+        'secret' => $secretKey,
+        'response' => $captchaResponse,
+        'remoteip' => $_SERVER['REMOTE_ADDR']
+    );
+    
+    // Use cURL for better error handling
+    $ch = curl_init($verifyURL);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    
+    $response = curl_exec($ch);
+    $curlError = curl_error($ch);
+    curl_close($ch);
+    
+    if ($curlError) {
+        // If cURL fails, you might want to log this error
+        error_log("reCAPTCHA cURL Error: " . $curlError);
+        $_SESSION['modal_message'] = "❌ reCAPTCHA verification service unavailable. Please try again.";
+        $_SESSION['modal_type'] = "danger";
+        header("Location: ../index.php");
+        exit();
+    }
+    
+    $result = json_decode($response);
+    
+    // Check if verification was successful
+    if (!$result || !$result->success) {
+        $errorMsg = "❌ reCAPTCHA verification failed.";
+        if (isset($result->{'error-codes'})) {
+            $errors = implode(", ", $result->{'error-codes'});
+            error_log("reCAPTCHA Errors: " . $errors);
+            
+            // Common error messages for users
+            if (in_array('missing-input-secret', $result->{'error-codes'}) || 
+                in_array('invalid-input-secret', $result->{'error-codes'})) {
+                $errorMsg = "❌ Server configuration error. Please contact administrator.";
+            } elseif (in_array('timeout-or-duplicate', $result->{'error-codes'})) {
+                $errorMsg = "❌ reCAPTCHA expired. Please verify again.";
+            }
+        }
+        
+        $_SESSION['modal_message'] = $errorMsg;
+        $_SESSION['modal_type'] = "danger";
+        header("Location: ../index.php");
+        exit();
+    }
+    // ==================== END reCAPTCHA VERIFICATION ====================
+
+    // Continue with registration if reCAPTCHA passes
     $student_id = $_POST['student_id'];
     $first_name = $_POST['first_name'];
     $middle_name = $_POST['middle_name'] ?? '';
@@ -24,14 +92,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-    // Generate QR code image (content = student ID, filename = student_id.png)
+    // Generate QR code
     $safe_filename = preg_replace('/[^A-Za-z0-9_\-]/', '_', $student_id);
     $qr_filename = $safe_filename . ".png";
     $qr_path = $qr_output_dir . $qr_filename;
 
-    QRcode::png($student_id, $qr_path, QR_ECLEVEL_L, 50, 1); // High-res, margin 1
+    QRcode::png($student_id, $qr_path, QR_ECLEVEL_L, 50, 1);
 
-    // Insert into DB: store just the filename (will be used like /qr_images/12345.png)
+    // Insert into DB
     $sql = "INSERT INTO students (
                 student_id, first_name, middle_name, last_name, suffix, sex, avatar, program, course, email, password_hash, qr_code
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
