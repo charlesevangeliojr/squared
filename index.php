@@ -111,12 +111,16 @@ session_start();
     <img src="images/Squared.png" alt="Squared" class="w-100 mt-4" style="height: auto;">
 
 <div class="ratio ratio-16x9">
-  <iframe
-    src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1427204562748792%2F&show_text=true&width=560&t=0"
-    allowfullscreen
-    frameborder="0"
-    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-  </iframe>
+    <iframe 
+        src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/reel/1427204562748792/&show_text=false&width=500" 
+        style="border:none;overflow:hidden" 
+        scrolling="no" 
+        frameborder="0" 
+        allowfullscreen="true"
+        sandbox="allow-scripts allow-same-origin allow-presentation"
+        loading="lazy"
+        referrerpolicy="no-referrer">
+    </iframe>
 </div>
 
 
@@ -725,24 +729,6 @@ setInterval(fetchAndAnimate, 1000);
   }
 </script>
 
-<script>
-  function updateClock() {
-    const now = new Date();
-    const clockElement = document.getElementById("liveClock");
-
-    const options = {
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
-      hour12: true,
-    };
-
-    clockElement.textContent = now.toLocaleTimeString('en-US', options);
-  }
-
-  setInterval(updateClock, 1000); // Update every second
-  updateClock(); // Initial call
-</script>
 
 <script>
     // Close navbar when clicking on a nav link (for mobile)
@@ -834,6 +820,47 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+</script>
+
+<script>
+// Suppress Facebook script errors
+(function() {
+    const originalError = console.error;
+    const originalWarn = console.warn;
+    
+    console.error = function(...args) {
+        if (args[0] && (
+            args[0].includes('facebook.com') ||
+            args[0].includes('fburl.com') ||
+            args[0].includes('Permissions policy violation') ||
+            args[0].includes('undefined element')
+        )) {
+            return; // Suppress Facebook errors
+        }
+        originalError.apply(console, args);
+    };
+    
+    console.warn = function(...args) {
+        if (args[0] && (
+            args[0].includes('facebook.com') ||
+            args[0].includes('fburl.com') ||
+            args[0].includes('Permissions policy violation')
+        )) {
+            return; // Suppress Facebook warnings
+        }
+        originalWarn.apply(console, args);
+    };
+    
+    // Also catch unhandled promise rejections from Facebook
+    window.addEventListener('unhandledrejection', function(event) {
+        if (event.reason && (
+            event.reason.message && event.reason.message.includes('facebook') ||
+            event.reason.stack && event.reason.stack.includes('facebook.com')
+        )) {
+            event.preventDefault();
+        }
+    });
+})();
 </script>
 
 </body>
