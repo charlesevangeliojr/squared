@@ -1,0 +1,14 @@
+# Disable directory listing
+Options -Indexes
+
+# Block access to dangerous files
+<FilesMatch "\.(php|html|js|css|sql|log|txt|conf|bak|old|tmp)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Only allow specific file types (modify as needed)
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|ico|pdf|doc|docx)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
